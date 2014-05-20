@@ -7,7 +7,9 @@ var gulp = require('gulp'),
 
 var paths = {
 	clientScripts: ['public/js/*'],
-	serverScripts: ['./index.js', './models/*.js', './libs/**/*.js']
+	serverScripts: ['./index.js', './models/*.js', './libs/**/*.js'],
+	less: ['./public/less/*.less'],
+	css: './public/static/css/',
 };
 
 
@@ -44,14 +46,14 @@ gulp.task('less', function() {
 			paths: ['style.less']
 		}))
 		.pipe(minifyCSS())
-		.pipe(gulp.dest('./public/css/'));
+		.pipe(gulp.dest(paths.css));
 });
 
 
 gulp.task('watch', function() {
 	// gulp.watch(paths.clientScripts, ['scripts']);
-	// gulp.watch(['./index.js', './lib/**/*.less'], ['less']);
-	gulp.watch([paths.serverScripts], ['server']);
+	gulp.watch(paths.less, ['less']);
+	gulp.watch(paths.serverScripts, ['server']);
 });
 
 
