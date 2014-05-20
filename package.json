@@ -1,0 +1,44 @@
+{
+  "name": "heuehuehueh",
+  "version": "0.0.0",
+  "description": "a thing",
+  "main": "./index.js",
+  "homepage": "",
+  "bugs": "",
+  "author": "rozap",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [],
+  "dependencies": {
+    "underscore": "*",
+    "commander": "*",
+    "gulp": "*",
+    "nunjucks": "*",
+    "MD5": "*",
+    "ws": "*",
+    "request": "*",
+    "express": "3.x",
+    "express-session": "*",
+    "connect": "2.x",
+    "express-validator": "*",
+    "bookshelf": "*",
+    "bookshelf-fields": "*",
+    "pg": "*",
+    "knex": "*",
+    "bluebird": "*",
+    "bcrypt": "latest"
+  },
+  "devDependencies": {
+    "gulp-nodemon": "*",
+    "gulp-less": "*",
+    "mocha": "*",
+    "chai": "*",
+    "wd": "*",
+    "gulp-uglify": "*",
+    "gulp-minify-css": "*"
+  },
+  "scripts": {},
+  "license": "MIT"
+}
