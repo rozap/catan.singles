@@ -1,0 +1,4 @@
+catan.singles
+=============
+
+u kno
