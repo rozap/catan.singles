@@ -37,9 +37,14 @@ define([
 
 		});
 
+		var MainView = AbstractView.extend({
+			el: '#main',
+		});
+
 
 		return {
-			AbstractView: AbstractView
+			AbstractView: AbstractView,
+			MainView: MainView
 		}
 
 

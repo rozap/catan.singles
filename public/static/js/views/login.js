@@ -1,9 +1,16 @@
-define(['views/abstract'], function(Views) {
+define([
+	'underscore',
+	'views/abstract',
+	'text!templates/auth/login.html'
+], function(_, Views, LoginViewTemplate) {
 
-	var LoginView = Views.AbstractView.extend({
+	var LoginView = Views.MainView.extend({
+
+		template: _.template(LoginViewTemplate),
 
 		initialize: function(app) {
-			console.log('im the login view')
+			Views.MainView.prototype.initialize.call(this, app);
+			this.render();
 		}
 
 	})

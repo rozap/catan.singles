@@ -1,3 +1,52 @@
+@margin: 32px;
+
+@white: #ffffff;
+@gray: #777777;
+@gray-light: lighten(@gray, 20%);
+@gray-lighter: lighten(@gray, 40%);
+
+* {
+	box-sizing: border-box;
+}
+
+.el { 
+	margin:@margin;
+}
 
 
+h1, h2, h3, h4, h5, h6 {
+	font-family: "omnes-pro", sans-serif;
+}
+
+.form-centered {
+	max-width: 384px;
+	margin:0px auto;
+	text-align: center;
+	padding:@margin;
+
+	input, button {
+		width:100%;
+	}
+
+	button {
+		margin:@margin/2 0px;
+	}
+}
+
+.divider {
+	width:100%;
+	margin:@margin/2 0px;
+	border-bottom:1px solid @gray-lighter;
+}
+
+.header-plain {
+	border:0px solid @white;
+}
+
+/* auth */
+.register-form {
+	p {
+		margin-top:0px;
+	}
+}
 

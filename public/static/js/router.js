@@ -5,14 +5,16 @@ define([
 
 		'views/login',
 		'views/logout',
+		'views/register',
 
 	],
-	function($, _, Backbone, LoginView, LogoutView) {
+	function($, _, Backbone, LoginView, LogoutView, RegisterView) {
 
 		var Router = Backbone.Router.extend({
 			routes: {
 				'login': 'login',
 				'logout': 'logout',
+				'register': 'register',
 				'profile/:username': 'profile'
 			},
 
@@ -24,12 +26,15 @@ define([
 
 
 			login: function() {
-				console.log('login')
 				this.__create(LoginView);
 			},
 
 			logout: function() {
 				this.__create(LogoutView);
+			},
+
+			register: function() {
+				this.__create(RegisterView);
 			},
 
 			profile: function(username) {
