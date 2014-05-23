@@ -8,14 +8,16 @@
         <form class="pure-form pure-form-aligned form-centered">
             <fieldset>
                 <div class="pure-control-group">
-                    <input id="name" type="text" placeholder="username">
+                    <%= renderError(errors, 'username') %>
+                    <input id="name" name="username" type="text" placeholder="username">
                 </div>
 
                 <div class="pure-control-group">
-                    <input id="password" type="password" placeholder="password">
+                    <%= renderError(errors, 'password') %>
+                    <input id="password" name="password" type="password" placeholder="password">
                 </div>
 
-                <button class="pure-button pure-button-primary login-button">
+                <button type="button" class="pure-button pure-button-primary login-button">
                     let's go
                 </button>
             </fieldset>

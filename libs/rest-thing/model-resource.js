@@ -185,7 +185,7 @@ var ModelResource = Resource.extend({
         this.getCollection(req).then(function(models) {
             that.serialize(req, res, models);
         }).
-        catch (_.partial(that.onError, req, res))
+        catch(_.partial(that.onError, req, res))
 
 
     },
@@ -199,9 +199,9 @@ var ModelResource = Resource.extend({
             newModel.fetch().then(function(model) {
                 that.serialize(req, res, model);
             }).
-            catch (_.partial(that.onError, req, res));
+            catch(_.partial(that.onError, req, res));
         }).
-        catch (_.partial(that.onError, req, res));
+        catch(_.partial(that.onError, req, res));
     },
 
     onListPut: function(req, res) {
@@ -238,10 +238,23 @@ var ModelResource = Resource.extend({
                     that.serialize(req, res, model);
                 }
         ).
-        catch (_.partial(that.onError, req, res));
+        catch(_.partial(that.onError, req, res));
     },
 
-    onDetailPost: function(req, res) {},
+    onDetailPost: function(req, res) {
+        var whereClause = this._getDetailWhereClause(req),
+            fields = this.hydrate(req.body, req, res).toJSON(),
+            that = this;
+
+        console.log('on detail post...')
+        new this.model(whereClause).fetch().then(
+            function(model) {
+                that.serialize(req, res, model);
+            }, function(err) {
+                res.json(404, err)
+            }
+        );
+    },
 
     onDetailPut: function(req, res) {
         var whereClause = this._getDetailWhereClause(req),

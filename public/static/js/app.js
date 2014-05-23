@@ -27,15 +27,19 @@ require.config({
 require([
 	'underscore',
 	'backbone',
-	'router'
-], function(_, Backbone, Router) {
+	'router',
+	'util/util',
+	'util/auth',
+], function(_, Backbone, Router, Util, Auth) {
 
 
+	var auth = new Auth();
 	var app = {
 		router: new Router.Router(),
-		dispatcher: _.clone(Backbone.events),
+		dispatcher: _.clone(Backbone.Events),
+		auth: auth
 	}
 	app.router.app = app;
-
 	Backbone.history.start();
+
 })

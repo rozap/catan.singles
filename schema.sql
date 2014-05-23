@@ -1,7 +1,7 @@
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     username varchar(255) NOT NULL UNIQUE,
-    email varchar(255) UNIQUE DEFAULT NULL,
+    email varchar(255) DEFAULT NULL,
     password varchar(512) NOT NULL,
     active boolean DEFAULT TRUE,
     created_at timestamp with time zone,

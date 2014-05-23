@@ -1,16 +1,13 @@
-@margin: 32px;
-
-@white: #ffffff;
-@gray: #777777;
-@gray-light: lighten(@gray, 20%);
-@gray-lighter: lighten(@gray, 40%);
 
 * {
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+	-webkit-backface-visibility: hidden;
 }
 
 .el { 
-	margin:@margin;
+	padding:@margin;
 }
 
 
@@ -43,6 +40,24 @@ h1, h2, h3, h4, h5, h6 {
 	border:0px solid @white;
 }
 
+
+
+
+@avatar-size: 128px;
+.avatar {
+	.hex();
+
+	.avatar-inner {
+		.hex-inner();
+		.avatar-innermost {
+			.hex-innermost();
+		}
+	}
+	overflow: hidden;
+	border: 1px solid @gray-lighter;
+}
+
+
 /* auth */
 .register-form {
 	p {
@@ -50,3 +65,52 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
+
+
+ul.nav {
+    list-style: none;
+    li {
+        a { 
+            display: block;
+            padding:4px 8px;
+
+            &:hover {
+                background: @gray-lighter;
+            };
+        }
+    }
+}
+
+.main-wrap {
+    position: relative;
+}
+
+.alert {
+	width: 100%;
+	padding:4px 12px;
+	margin:@margin/2 0px;
+	color:@white;
+	text-align: left;
+}
+
+
+.alert.alert-error {
+	background-color: fadeout(@red, 50%);
+	border-left: 4px solid @red;
+}
+
+
+.alert.alert-success {
+	background-color: fadeout(@green, 50%);
+	border-left: 4px solid @green;
+}
+
+
+#messenger {
+    width: @margin * 4;
+    position: fixed;
+    right:0px;
+    background: @gray-dark;
+    height: 100%;
+    display: none;
+}

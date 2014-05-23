@@ -6,12 +6,19 @@ module.exports.checkAuth = function(config, req, res, next) {
 		});
 	}
 
-	var token = req.headers['auth_token'];
-	if (!token) fail();
-
+	var things = req.headers['auth_token'];
+	console.log(things)
+	if (!things) {
+		fail();
+		return;
+	}
+	var sp = things.split(':');
+	var username = sp[0];
+	var token = sp[1];
 
 	new config.models.User({
 		auth_token: token,
+		username: username,
 		active: true
 	}).fetch().then(function(user) {
 		if (user) {
