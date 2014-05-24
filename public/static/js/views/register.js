@@ -25,6 +25,14 @@ define([
 			this.hydrate().setNew().save().then(this.showSuccess, this.showError);
 		},
 
+		showSuccess: function(e) {
+			console.log(this.model.toJSON())
+			this.app.auth.memo(this.model);
+			this.app.router.navigate('profile/' + this.model.get('username'), {
+				trigger: true
+			});
+		}
+
 
 
 	})

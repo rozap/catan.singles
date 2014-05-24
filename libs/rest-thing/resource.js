@@ -1,5 +1,7 @@
 var _ = require('underscore'),
-	Promise = require('bluebird');
+	Promise = require('bluebird'),
+	util = require('util'),
+	EventEmitter = require('events').EventEmitter;
 
 var Resource = function(opts) {
 	this._opts = opts;
@@ -13,6 +15,7 @@ var Resource = function(opts) {
 	this.initialize.apply(this, arguments);
 	this._setupListMethods();
 	this._setupDetailMethods();
+
 
 }
 
@@ -39,6 +42,7 @@ Resource.extend = function(protoProps, staticProps) {
 };
 
 
+util.inherits(Resource, EventEmitter);
 Resource.prototype = {
 
 	detailParam: 'id',
@@ -98,7 +102,7 @@ Resource.prototype = {
 		]).then(function() {
 			that[boundMethodName](req, res);
 		}).
-		catch (function(ret) {
+		catch(function(ret) {
 			res.json(ret.status, {
 				errors: ret.errors
 			});

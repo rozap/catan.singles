@@ -197,6 +197,7 @@ var ModelResource = Resource.extend({
             return model.load(that.getRelated());
         }).then(function(model) {
             newModel.fetch().then(function(model) {
+                that.emit('create', model, req, res);
                 that.serialize(req, res, model);
             }).
             catch(_.partial(that.onError, req, res));
