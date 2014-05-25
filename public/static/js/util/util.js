@@ -4,6 +4,8 @@ define([
 	'models/user'
 ], function(_, Backbone, User) {
 
+	$.fx.speeds._default = 200;
+
 	(function($, undefined) {
 
 		$(document).on('keyup', function(e) {

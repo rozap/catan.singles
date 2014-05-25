@@ -1,0 +1,27 @@
+<h5 class="inverse">conversations</h5>
+
+
+<ul class="nav conversations">
+	<% _.each(conversations, function(convo) { %>
+		<li>
+			<a href="javascript:void(0)"
+				class="conversation-item"
+				data-convo="<%- convo.id %>">
+				<div class="convo-icon">
+					<img src="http://placekitten.com/64/64"/>
+				</div>
+				<span class="convo-label">
+					<span class="convo-label-in">
+						<%- convo.other_user.username.slice(0, 16) %>
+					</span>
+				</span>
+			</a>
+		</li>
+
+
+	<% }); %>
+
+</ul>
+
+
+<div id="conversation-view"></div>

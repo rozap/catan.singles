@@ -1,0 +1,123 @@
+@convo-width:  @margin * 3;
+@convo-height: 64px + 8px;
+@icon-size: @convo-height - 8px;
+
+#messenger-view {
+    width: @convo-width;
+    position: fixed;
+    right:0px;
+    background: @gray-dark;
+    height: 100%;
+    display: none;
+    z-index: 100;
+
+    h1, h2, h3, h4, h5, h6 {
+    	padding:4px 8px;
+    	margin-top:4px;
+    	color: @gray-lighter;
+    	font-weight: 100;
+    	border-bottom: 1px solid lighten(@gray-dark, 5%);
+    }
+}
+
+ul.conversations {
+	padding:0px;
+
+
+	li {
+		text-align: center;
+		a {
+			position: relative;
+			transition: all .2s;
+
+
+			.convo-label {
+				transition: all .2s;
+
+				position: absolute;
+				max-width: @icon-size*2;
+				width: auto;
+				right: @icon-size*2 - 16px;
+				padding: 8px;
+				top:@icon-size/2 - 16px;
+				background: @gray-dark;
+				color:@gray-lighter;
+				border:1px solid lighten(@gray-dark, 5%);
+				text-align: center;
+				.round(2px);
+				font-size: 85%;
+				display: none;
+				span.convo-label-in {
+					overflow: hidden;
+					width: @icon-size*2 - 16px;
+					display: inline-block;
+
+				}
+
+			}
+
+			.convo-label:after, .convo-label:before {
+				left: 100%;
+				top: 50%;
+				border: solid transparent;
+				content: " ";
+				height: 0;
+				width: 0;
+				position: absolute;
+				pointer-events: none;
+			}
+
+			.convo-label:after {
+				border-left-color: @gray-dark;
+				border-width: 8px;
+				margin-top: -8px;
+			}
+			.convo-label:before {
+				border-left-color: @gray-dark;
+				border-width: 8px;
+				margin-top: -8px;
+			}
+			
+			.convo-icon {
+				width:@icon-size;
+				height:@icon-size;
+				.round(@icon-size);
+				overflow: hidden;
+				display: inline-block;
+
+				img {
+					max-width: @icon-size;
+					max-height: @icon-size;
+
+				}
+
+			}
+
+			&:hover {
+				background:lighten(@gray-dark, 5%);
+
+				.convo-label {
+					display: inline;
+				}
+
+			};
+
+
+		}
+	}
+}
+
+#conversation-view {
+	display: none;
+	position: fixed;
+	width:@convo-width*6;
+	right:@convo-width;
+	top:0px;
+	bottom:0px;
+	background: lighten(@gray-dark, 5%);
+	border-right: 1px solid lighten(@gray-dark, 15%);
+
+    h1, h2, h3, h4, h5, h6 {
+    	border-bottom: 1px solid @gray-dark;
+    }
+}

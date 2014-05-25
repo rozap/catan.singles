@@ -10,6 +10,9 @@ define([
 
 			errorTemplate: _.template(ErrorTemplate),
 
+			withContext: [],
+			_subviews: {},
+
 			initialize: function() {
 				this.app = arguments[0];
 
@@ -21,13 +24,18 @@ define([
 				ctx.errors = ctx.errors || false;
 				ctx.model = ctx.model || this.model || {};
 				ctx.renderError = this.renderError;
+				_.each(this.withContext, function(key) {
+					ctx[key] = ctx[key] || this[key];
+				}, this);
 				_.each(ctx, function(val, key) {
 					if (val && _.isFunction(val)) {
 						ctx[key] = val.bind(this);
 					} else if (val && _.isFunction(val.toJSON)) {
 						ctx[key] = val.toJSON();
 					}
-				}, this)
+				}, this);
+
+
 
 				ctx = _.extend({
 					_: _,
@@ -45,8 +53,10 @@ define([
 
 			render: function(ctx) {
 				this.trigger('preRender');
+				this.preRender && this.preRender(ctx);
 				ctx = this.context(ctx);
 				this._render(ctx);
+				this.postRender && this.postRender(ctx);
 				this.trigger('postRender');
 			},
 
@@ -98,14 +108,25 @@ define([
 					});
 				}
 				return ''
-			}
+			},
+
+			addView: function(view, alias) {
+				this._subviews[alias || view.cid] = view;
+				view.listenTo(this, 'end', view.end.bind(view));
+				return view;
+			},
+
+			endView: function(aliasOrCid) {
+				this._subviews[aliasOrCid].end();
+				delete this._subviews[cid];
+			},
 
 
 
 		});
 
 		var MainView = AbstractView.extend({
-			el: '#main',
+			el: '#main-view',
 		});
 
 

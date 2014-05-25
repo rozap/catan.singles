@@ -7,7 +7,6 @@ module.exports.checkAuth = function(config, req, res, next) {
 	}
 
 	var things = req.headers['auth_token'];
-	console.log(things)
 	if (!things) {
 		fail();
 		return;

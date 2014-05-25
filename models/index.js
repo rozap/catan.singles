@@ -26,5 +26,6 @@ module.exports = function(config) {
         'Photo': require('./photo')(Bookshelf),
         'Like': require('./like')(Bookshelf),
         'Invite': require('./invite')(Bookshelf),
+        'Conversation': require('./conversation')(Bookshelf),
     }
 }

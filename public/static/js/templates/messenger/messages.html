@@ -1,0 +1,15 @@
+<h5 class="inverse">i'm a messenger</h5>
+
+
+<ul>
+	<% _.each(conversations, function(convo) { %>
+		<li>
+			<a href="javascript:void(0)">
+				<%- convo.other_user %>
+			</a>
+		</li>
+
+
+	<% }); %>
+
+</ul>

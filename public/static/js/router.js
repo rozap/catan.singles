@@ -8,9 +8,10 @@ define([
 		'views/register',
 		'views/profile',
 		'views/edit-profile',
+		'views/home',
 
 	],
-	function($, _, Backbone, LoginView, LogoutView, RegisterView, ProfileView, EditProfileView) {
+	function($, _, Backbone, LoginView, LogoutView, RegisterView, ProfileView, EditProfileView, HomeView) {
 
 		var Router = Backbone.Router.extend({
 			publicRouteMap: {
@@ -21,10 +22,12 @@ define([
 
 			authRouteMap: {
 				'profile/:username/edit': EditProfileView,
-				'profile/:username': ProfileView
+				'profile/:username': ProfileView,
+				'.*': HomeView,
 			},
 
-			initialize: function() {
+			initialize: function(app) {
+				this.app = app;
 				this.__addRoutes(this.publicRouteMap, this.createView);
 				this.__addRoutes(this.authRouteMap, this.authView);
 			},
@@ -55,7 +58,6 @@ define([
 				} else {
 					self.createView(cls);
 				}
-
 			},
 
 

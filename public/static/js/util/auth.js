@@ -9,16 +9,21 @@ define([
 
 	}
 
+	Auth.user = 'catanUser';
+	Auth.token = 'catanToken';
+
 
 	Auth.prototype = {
+
+
 
 		getUser: function() {
 
 		},
 
 		authorize: function(app) {
-			var username = localStorage['catanUser'];
-			var token = localStorage['catanToken'];
+			var username = localStorage[Auth.user];
+			var token = localStorage[Auth.token];
 			if (!username || !token) {
 				//don't even make the api call, just reject it immediately
 				return $.Deferred().reject({
@@ -34,6 +39,7 @@ define([
 			var self = this;
 			this._model.on('sync', function() {
 				self.__isAuthed = true;
+				self.app.dispatcher.trigger('authorized', self._model);
 			});
 			return this._model.fetch();
 		},
@@ -51,8 +57,14 @@ define([
 
 		memo: function(model) {
 			this._model = model;
-			localStorage['catanToken'] = this._model.get('auth_token');
-			localStorage['catanUser'] = this._model.get('username');
+			localStorage[Auth.token] = this._model.get('auth_token');
+			localStorage[Auth.user] = this._model.get('username');
+		},
+
+		logout: function() {
+			this._model = null;
+			localStorage[Auth.token] = null;
+			localStorage[Auth.user] = null;
 		}
 
 	}

@@ -58,5 +58,13 @@ CREATE TABLE invites(
 
 );
 
+CREATE TABLE conversations(
+    id SERIAL PRIMARY KEY,
+    created_at timestamp with time zone,
+    updated_at timestamp with time zone,
+    other_user integer REFERENCES users(id),
+    creator integer REFERENCES users(id)
+);
+
 
 

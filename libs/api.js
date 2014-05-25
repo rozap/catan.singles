@@ -1,6 +1,5 @@
 var UserResource = require('./resources/user'),
-    ThreadResource = require('./resources/thread'),
-    CommentResource = require('./resources/comment');
+    ConversationResource = require('./resources/conversation');
 
 module.exports = function(app, config, models) {
     //TODO: make this nicer...so this stuff isn't in the config
@@ -11,6 +10,7 @@ module.exports = function(app, config, models) {
         config: config,
     }
     new UserResource(opts);
+    new ConversationResource(opts);
 
     console.log("im an api!")
 }

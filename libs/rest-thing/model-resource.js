@@ -21,6 +21,10 @@ var ModelResource = Resource.extend({
 
     },
 
+    getModel: function(name) {
+        return this.config.models[name];
+    },
+
 
     __relationsFor: function(relationTypes) {
         var related = [];
@@ -162,12 +166,40 @@ var ModelResource = Resource.extend({
 
     getCollection: function(req) {
         var that = this;
-        return this.model.collection().query(function(qb) {
-            that.buildCollectionQuery(req, qb);
-        }).fetch({
-            withRelated: this.getRelated()
-        });
+        return this.model.collection()
+            .query(function(qb) {
+                that.buildCollectionQuery(req, qb);
+            }).fetch({
+                withRelated: this.getRelated()
+            });
     },
+
+
+
+    buildDetailQuery: function(req, qb) {
+        console.log("build detail")
+        this.applyFilters(req, qb);
+        var paramName = this.detailParam;
+        return qb.where(paramName, req.params[paramName]);
+    },
+
+    getDetail: function(req, res) {
+        console.log("GET DETAIl")
+        var that = this;
+        return new this.model({
+                id: 1,
+                creator: 1
+            })
+            .query(function(qb) {
+                that.buildDetailQuery(req, qb)
+            })
+            .fetch()
+            .tap(function(model) {
+                return model.load(that.getRelated());
+            });
+    },
+
+
 
     applyFilters: function(req, qb) {
         _.each(this.filters, function(filter) {
@@ -197,7 +229,6 @@ var ModelResource = Resource.extend({
             return model.load(that.getRelated());
         }).then(function(model) {
             newModel.fetch().then(function(model) {
-                that.emit('create', model, req, res);
                 that.serialize(req, res, model);
             }).
             catch(_.partial(that.onError, req, res));
@@ -213,27 +244,11 @@ var ModelResource = Resource.extend({
 
     },
 
-    _getDetailWhereClause: function(req) {
-        var paramName = this.detailParam,
-            whereClause = {};
 
-        whereClause[paramName] = req.params[paramName];
-        return whereClause;
-    },
-
-    loadDetailModel: function(req, res) {
-        var whereClause = this._getDetailWhereClause(req),
-            that = this;
-        return new this.model(whereClause)
-            .fetch()
-            .tap(function(model) {
-                return model.load(that.getRelated());
-            });
-    },
 
     onDetailGet: function(req, res) {
         var that = this;
-        this.loadDetailModel(req, res)
+        this.getDetail(req, res)
             .then(
                 function(model) {
                     that.serialize(req, res, model);
@@ -243,11 +258,9 @@ var ModelResource = Resource.extend({
     },
 
     onDetailPost: function(req, res) {
-        var whereClause = this._getDetailWhereClause(req),
+        var whereClause = this.buildDetailQuery(req),
             fields = this.hydrate(req.body, req, res).toJSON(),
             that = this;
-
-        console.log('on detail post...')
         new this.model(whereClause).fetch().then(
             function(model) {
                 that.serialize(req, res, model);
@@ -258,7 +271,7 @@ var ModelResource = Resource.extend({
     },
 
     onDetailPut: function(req, res) {
-        var whereClause = this._getDetailWhereClause(req),
+        var whereClause = this.buildDetailQuery(req),
             fields = this.hydrate(req.body, req, res).toJSON(),
             that = this;
 
@@ -274,7 +287,7 @@ var ModelResource = Resource.extend({
     },
 
     onDetailDelete: function(req, res) {
-        var whereClause = this._getDetailWhereClause(req),
+        var whereClause = this.buildDetailQuery(req),
             fields = req.body,
             that = this;
         new this.model(whereClause).save(fields, {

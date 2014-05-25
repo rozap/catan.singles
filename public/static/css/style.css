@@ -2931,6 +2931,14 @@ h5,
 h6 {
   font-family: "omnes-pro", sans-serif;
 }
+h1.inverse,
+h2.inverse,
+h3.inverse,
+h4.inverse,
+h5.inverse,
+h6.inverse {
+  color: #f7f7f7;
+}
 .form-centered {
   max-width: 384px;
   margin: 0px auto;
@@ -3023,11 +3031,115 @@ ul.nav li a:hover {
   background-color: rgba(0, 255, 0, 0.5);
   border-left: 4px solid #00ff00;
 }
-#messenger {
-  width: 128px;
+#messenger-view {
+  width: 96px;
   position: fixed;
   right: 0px;
   background: #444444;
   height: 100%;
   display: none;
+  z-index: 100;
+}
+#messenger-view h1,
+#messenger-view h2,
+#messenger-view h3,
+#messenger-view h4,
+#messenger-view h5,
+#messenger-view h6 {
+  padding: 4px 8px;
+  margin-top: 4px;
+  color: #f7f7f7;
+  font-weight: 100;
+  border-bottom: 1px solid #515151;
+}
+ul.conversations {
+  padding: 0px;
+}
+ul.conversations li {
+  text-align: center;
+}
+ul.conversations li a {
+  position: relative;
+  transition: all .2s;
+}
+ul.conversations li a .convo-label {
+  transition: all .2s;
+  position: absolute;
+  max-width: 128px;
+  width: auto;
+  right: 112px;
+  padding: 8px;
+  top: 16px;
+  background: #444444;
+  color: #f7f7f7;
+  border: 1px solid #515151;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 85%;
+  display: none;
+}
+ul.conversations li a .convo-label span.convo-label-in {
+  overflow: hidden;
+  width: 112px;
+  display: inline-block;
+}
+ul.conversations li a .convo-label:after,
+ul.conversations li a .convo-label:before {
+  left: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+ul.conversations li a .convo-label:after {
+  border-left-color: #444444;
+  border-width: 8px;
+  margin-top: -8px;
+}
+ul.conversations li a .convo-label:before {
+  border-left-color: #444444;
+  border-width: 8px;
+  margin-top: -8px;
+}
+ul.conversations li a .convo-icon {
+  width: 64px;
+  height: 64px;
+  -webkit-border-radius: 64px;
+  -moz-border-radius: 64px;
+  border-radius: 64px;
+  overflow: hidden;
+  display: inline-block;
+}
+ul.conversations li a .convo-icon img {
+  max-width: 64px;
+  max-height: 64px;
+}
+ul.conversations li a:hover {
+  background: #515151;
+}
+ul.conversations li a:hover .convo-label {
+  display: inline;
+}
+#conversation-view {
+  display: none;
+  position: fixed;
+  width: 576px;
+  right: 96px;
+  top: 0px;
+  bottom: 0px;
+  background: #515151;
+  border-right: 1px solid #6a6a6a;
+}
+#conversation-view h1,
+#conversation-view h2,
+#conversation-view h3,
+#conversation-view h4,
+#conversation-view h5,
+#conversation-view h6 {
+  border-bottom: 1px solid #444444;
 }

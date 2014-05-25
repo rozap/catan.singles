@@ -10,6 +10,7 @@ define([
 
 		initialize: function(app) {
 			Views.MainView.prototype.initialize.call(this, app);
+			this.app.auth.logout();
 			this.render();
 		}
 
