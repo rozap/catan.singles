@@ -30,6 +30,34 @@ describe('Account resource test', function() {
             var s = server(config, models);
         });
 
+        var register = function(cb) {
+            var rand = Math.random() * 10000;
+            var pass = 'foobar' + rand;
+            var username = 'foo' + rand;
+            request.post({
+                url: url() + 'user',
+                json: true,
+                headers: {
+                    'content-type': 'application/json'
+                },
+                form: {
+                    'username': username,
+                    'password': pass,
+                    'password_confirmation': pass
+                }
+            }, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+
+                new models.User({
+                    username: username
+                }).fetch().then(function(user) {
+                    expect(user.get('username')).to.equal(username);
+                    cb(user, pass);
+                })
+
+            });
+        }
+
 
 
         it('can register a user', function(done) {
@@ -58,6 +86,28 @@ describe('Account resource test', function() {
                 })
 
             });
+        });
+
+
+        it('can log in', function(done) {
+            register(function(user, pass) {
+                console.log(user.get('username'), pass)
+                request.post({
+                    url: url() + 'user/' + user.get('username'),
+                    json: true,
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    form: {
+                        username: user.get('username'),
+                        password: pass
+                    }
+                }, function(err, res, body) {
+                    // console.log(err, res, body)
+
+                    done();
+                })
+            })
         });
 
 

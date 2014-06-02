@@ -127,6 +127,16 @@ Resource.prototype = {
 	},
 
 
+
+	onError: function(req, res, err) {
+		var o = {};
+		console.log(err);
+		var fail = Object.getOwnPropertyNames(err).map(function(key) {
+			o[key] = err[key];
+		})
+		res.json(o);
+	},
+
 	validate: function(req, res) {
 		this.applyValidation(req, res);
 		var errors = req.validationErrors();

@@ -147,14 +147,6 @@ var ModelResource = Resource.extend({
     },
 
 
-    onError: function(req, res, err) {
-        var o = {}
-        var fail = Object.getOwnPropertyNames(err).map(function(key) {
-            o[key] = err[key];
-        })
-        res.json(o);
-    },
-
 
     buildCollectionQuery: function(req, qb) {
         this.applyFilters(req, qb);
@@ -177,21 +169,20 @@ var ModelResource = Resource.extend({
 
 
     buildDetailQuery: function(req, qb) {
-        console.log("build detail")
         this.applyFilters(req, qb);
         var paramName = this.detailParam;
         return qb.where(paramName, req.params[paramName]);
     },
 
     getDetail: function(req, res) {
-        console.log("GET DETAIl")
         var that = this;
-        return new this.model({
-                id: 1,
-                creator: 1
-            })
+        console.log("WTF???")
+        return new this.model({})
             .query(function(qb) {
-                that.buildDetailQuery(req, qb)
+                console.log("BEFORE QB")
+                qb = that.buildDetailQuery(req, qb);
+                console.log("QBBBBBBBBB");
+                return qb;
             })
             .fetch()
             .tap(function(model) {
